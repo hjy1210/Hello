@@ -8,6 +8,7 @@ namespace hello
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("V1!");
+            branch.sayHello();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace hello
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine("V1!");
             branch.sayHello();
+            MyTest.SayHello();
         }
     }
 }

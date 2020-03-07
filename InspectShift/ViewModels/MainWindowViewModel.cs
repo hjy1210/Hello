@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using OpenCvSharp;
+using Prism.Mvvm;
 using System;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -36,6 +37,12 @@ namespace InspectShift.ViewModels
                     BitmapSrc = new BitmapImage(new Uri(selectedFile));
                 }
             }
+        }
+        private Mat grayMat;
+        public Mat GrayMat
+        {
+            get { return grayMat; }
+            set { SetProperty(ref grayMat, value); }
         }
         public MainWindowViewModel()
         {

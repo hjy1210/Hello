@@ -38,6 +38,7 @@
                 </Image>
                 <Rectangle Stroke="Blue" StrokeThickness="10" Width="{Binding Width}"
                            Height="{Binding Height}" Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}"/>
+                <Polygon Points="{Binding Polygon2}" Stroke="Blue" Opacity="0.6" StrokeThickness="10" />
                 <!--<Rectangle Stroke="Blue" StrokeThickness="1" Width="100"
                            Height="100" Canvas.Left="10" Canvas.Top="20"/> -->
             </Canvas>

@@ -15,11 +15,19 @@
             <TextBox Width="400" IsReadOnly="True" Name="tbxDirectory"/>
             <TextBlock Text=" file pattern:"/>
             <TextBox Text="*.jpg" Name="tbxPattern" Width="60" />
-            <ComboBox Width="400" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}" />
+            <ComboBox Width="400" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}"  />
         </StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Canvas Width="4000" Height="3000">
-                <Image Name="image1" Source="{Binding BitmapSrc}" />
+                <Canvas.RenderTransform>
+                    <ScaleTransform ScaleX="0.25" ScaleY="0.25" />
+                </Canvas.RenderTransform>
+                <Image Name="image1" Source="{Binding BitmapSrc}">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}" />
+                    </Image.RenderTransform>
+                </Image>
+                <Polygon Points="{Binding Polygon}" Stroke="Blue" Opacity="0.6" StrokeThickness="10" />
             </Canvas>
         </ScrollViewer>
     </Grid>

@@ -32,7 +32,11 @@ namespace ModuleLocateRectangle.ViewModels
         public string[] Files
         {
             get { return files; }
-            set { SetProperty(ref files, value); }
+            set { 
+                SetProperty(ref files, value);
+                if (files.Length >0)
+                    SelectedFile = files[0];
+            }
         }
         private BitmapSource bitmapSrc;
         public BitmapSource BitmapSrc

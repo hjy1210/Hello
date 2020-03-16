@@ -37,16 +37,23 @@ namespace Yh.OpenCV
             }
             return rect;
         }
-        public static Point[] GetLargestQuadrilateral(Mat grayMat)
+        public static Point[] GetLargestQuadrilateral(Mat grayMat,out Mat binary, out Mat contourMat)
         {
             Mat blur = new Mat();
             grayMat.CopyTo(blur);
             Cv2.GaussianBlur(blur, blur, new Size(5, 5), 0);
-            Mat binary = new Mat();
+            binary = new Mat();
             double otsu = Cv2.Threshold(blur, binary, 200, 255, ThresholdTypes.BinaryInv | ThresholdTypes.Otsu); //ThresholdTypes.BinaryInv | ThresholdTypes.Otsu 並沒有比較好?
+            //Mat kernel = new Mat(new Size(3, 3), MatType.CV_8U, 1);
+            //Cv2.Dilate(binary, binary, kernel, null, 4);
+            //Cv2.Erode(binary, binary, kernel, null, 4);
+            Mat kernel = new Mat(new Size(9, 9), MatType.CV_8U, 1);
+            Cv2.MorphologyEx(binary, binary, MorphTypes.Close, kernel);
+            //Cv2.ImShow("binary", binary);
             Cv2.FindContours(binary, out Point[][] contours, out HierarchyIndex[] hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
             List<Rect> rects = new List<Rect>();
-            contours = (from c in contours where Cv2.ContourArea(c, false) > 100 select c).ToArray();
+            contours = (from c in contours where Cv2.ContourArea(c, false) > 10000 select c).ToArray();
+            contourMat = new Mat(grayMat.Size(), MatType.CV_8U, 0);
             List<Point[]> qualifiedContours = new List<Point[]>();
             for (int i = 0; i < contours.Length; i++)
             {
@@ -56,6 +63,8 @@ namespace Yh.OpenCV
                     qualifiedContours.Add(quad);
                 }
             }
+            Cv2.DrawContours(contourMat, qualifiedContours, -1, 255);
+            //Cv2.Rotate(contourMat, contourMat, RotateFlags.Rotate90Clockwise);
             Point[] polygon = new Point[0];
             if (qualifiedContours.Count > 0)
             {

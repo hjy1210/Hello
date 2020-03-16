@@ -20,29 +20,65 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Pick directiory to inspect" Name="btnPickDirectory" Click="btnPickDirectory_Click"/>
+            <Button Content="Pick directiory to inspect" ToolTip="選取目錄檢視每一圖檔內的最大四邊形框" Name="btnPickDirectory" Click="btnPickDirectory_Click"/>
             <TextBox Width="400" IsReadOnly="True" Name="tbxDirectory"/>
             <TextBlock Text=" file pattern:"/>
             <TextBox Text="*.jpg" Name="tbxPattern" Width="60" />
             <ComboBox Width="400" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}" />
+            <Slider  Width="60" Maximum="1" LargeChange="0.05" Value="{Binding CanvasScale}" SmallChange="0.05" />
+            <TextBlock Text="{Binding CanvasScale}" />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Canvas Width="40000" Height="30000">
-                <Canvas.RenderTransform>
-                    <ScaleTransform ScaleX="0.25" ScaleY="0.25" />
-                </Canvas.RenderTransform>
-                <Image Name="image1" Source="{Binding BitmapSrc}">
-                    <Image.RenderTransform>
-                        <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}" />
-                    </Image.RenderTransform>
-                </Image>
-                <Rectangle Stroke="Blue" StrokeThickness="10" Width="{Binding Width}"
-                           Height="{Binding Height}" Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}"/>
-                <Polygon Points="{Binding Polygon2}" Stroke="Blue" Opacity="0.6" StrokeThickness="10" />
-                <!--<Rectangle Stroke="Blue" StrokeThickness="1" Width="100"
+        <Grid Grid.Row="1">
+            <TabControl>
+                <TabItem Header="Original">
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Canvas Width="40000" Height="30000">
+                            <Canvas.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding CanvasScale}" ScaleY="{Binding CanvasScale}" />
+                            </Canvas.RenderTransform>
+                            <Image Name="image1" Source="{Binding BitmapSrc}">
+                                <Image.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}" />
+                                </Image.RenderTransform>
+                            </Image>
+                            <!--<Rectangle Stroke="Blue" StrokeThickness="10" Width="{Binding Width}"
+                           Height="{Binding Height}" Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}"/>-->
+                            <Polygon Points="{Binding Polygon2}" Stroke="Blue" Opacity="0.6" StrokeThickness="10" />
+                            <!--<Rectangle Stroke="Blue" StrokeThickness="1" Width="100"
                            Height="100" Canvas.Left="10" Canvas.Top="20"/> -->
-            </Canvas>
-        </ScrollViewer>
+                        </Canvas>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Binary">
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Canvas Width="40000" Height="30000">
+                            <Canvas.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding CanvasScale}" ScaleY="{Binding CanvasScale}" />
+                            </Canvas.RenderTransform>
+                            <Image Name="image2" Source="{Binding BinarySrc}">
+                                <Image.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding ScaleBinary}" ScaleY="{Binding ScaleBinary}" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Canvas>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Contour">
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Canvas Width="40000" Height="30000">
+                            <Canvas.RenderTransform>
+                                <ScaleTransform ScaleX="{Binding CanvasScale}" ScaleY="{Binding CanvasScale}" />
+                            </Canvas.RenderTransform>
+                            <Image  Source="{Binding ContourSrc}">
+                                <Image.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding ScaleContour}" ScaleY="{Binding ScaleContour}" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Canvas>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 
 </UserControl>

@@ -44,11 +44,41 @@ namespace ModuleLocateRectangle.ViewModels
             get { return bitmapSrc; }
             set { SetProperty(ref bitmapSrc, value); }
         }
+        private BitmapSource binarySrc;
+        public BitmapSource BinarySrc
+        {
+            get { return binarySrc; }
+            set { SetProperty(ref binarySrc, value); }
+        }
+        private BitmapSource contourSrc;
+        public BitmapSource ContourSrc
+        {
+            get { return contourSrc; }
+            set { SetProperty(ref contourSrc, value); }
+        }
         private double scale;
         public double Scale
         {
             get { return scale; }
             set { SetProperty(ref scale, value); }
+        }
+        private double scaleBinary;
+        public double ScaleBinary
+        {
+            get { return scaleBinary; }
+            set { SetProperty(ref scaleBinary, value); }
+        }
+        private double scaleContour;
+        public double ScaleContour
+        {
+            get { return scaleContour; }
+            set { SetProperty(ref scaleContour, value); }
+        }
+        private double canvasScale;
+        public double CanvasScale
+        {
+            get { return canvasScale; }
+            set { SetProperty(ref canvasScale, value); }
         }
         private string selectedFile;
         public string SelectedFile
@@ -63,7 +93,11 @@ namespace ModuleLocateRectangle.ViewModels
                     Mat bgrImage = BitmapSourceConverter.ToMat(BitmapSrc);
                     Cv2.CvtColor(bgrImage, GrayMat, ColorConversionCodes.BGR2GRAY);
                     //LargestRect= Yh.OpenCV.Misc.GetLargestRectangle(grayMat);
-                    var opencvPoints = Yh.OpenCV.Misc.GetLargestQuadrilateral(grayMat);
+                    var opencvPoints = Yh.OpenCV.Misc.GetLargestQuadrilateral(grayMat,out Mat binary, out Mat contourMat);
+                    BinarySrc = BitmapSourceConverter.ToBitmapSource(binary);
+                    ScaleBinary = BinarySrc.DpiX / 96.0;
+                    ContourSrc = BitmapSourceConverter.ToBitmapSource(contourMat);
+                    ScaleContour = ContourSrc.DpiX / 96.0;
                     // Construct Polygon1:System.Windows.Point[] from opencvPoints
                     var tmpPolygon1 = new System.Windows.Point[opencvPoints.Length];
                     for (int i = 0; i < opencvPoints.Length; i++)
@@ -156,6 +190,7 @@ namespace ModuleLocateRectangle.ViewModels
         public ViewAViewModel()
         {
             Message = "View A from your Prism Module";
+            canvasScale = 0.25;
         }
     }
 }

@@ -6,8 +6,10 @@ namespace hello
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            MyTest.SayHello();
+            //Console.WriteLine("Hello World!");
+            //MyTest.SayHello();
+            OneToNine obj = new OneToNine();
+            obj.Solve();
         }
     }
 }

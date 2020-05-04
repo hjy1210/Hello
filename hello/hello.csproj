@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="OpenCvSharp4.Windows" Version="4.3.0.20200421" />
     <PackageReference Include="ScrapySharp" Version="3.0.0" />
   </ItemGroup>
 

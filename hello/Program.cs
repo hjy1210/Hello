@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
 
 namespace hello
 {
@@ -9,7 +10,8 @@ namespace hello
             //Console.WriteLine("Hello World!");
             //MyTest.SayHello();
             //testOneToNine();
-            testMyScraper();
+            //testMyScraper();
+            testOpencvSharpVisualizer();
         }
         static void testOneToNine()
         {
@@ -24,6 +26,11 @@ namespace hello
             MyScraper.SaveMonthData(codes);
             MyScraper.SaveStockDividendPolicy(codes);
             MyScraper.ComputeProfit(codes);
+        }
+        static void testOpencvSharpVisualizer()
+        {
+            Mat cImage = Cv2.ImRead(@"D:\MIA\IMG_1902.jpg", ImreadModes.Color);
+            int x = 0; // Set breakpoint at this line. In debug mode, put cursor on cImage, then click the magnifier button to see the image of cImage.
         }
     }
 }

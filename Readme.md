@@ -17,3 +17,6 @@ A,B,C,D,E,F,G,H,I 是 1 到 9 的相異阿拉伯數字, 滿足:
 ```
 ## hello.MyScraper.cs
 從 goodinfo網站擷取股票交易資料、股利資料，計算幾何平均年利率。
+
+## hello.testOpencvSharpVisualizer
+參考 [Debugger Visualizer](https://github.com/shimat/opencvsharp/wiki/Debugger-Visualizer)，利用 OpenCvSharp.DebuggerVisualizers.dll 測試：debug mode下，觀看 Mat。
